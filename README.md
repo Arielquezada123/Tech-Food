@@ -1,1 +1,1 @@
-- This is a project in Adroid Studio 
+- This is a project in Adroid Studio which seeks to automate the purchase of products at the Inacap casino
