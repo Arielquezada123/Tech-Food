@@ -7,7 +7,7 @@
     tools:context=".ui.slideshow.SlideshowFragment">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btningresarproducto"
         android:layout_width="170dp"
         android:layout_height="70dp"
         android:layout_marginBottom="96dp"

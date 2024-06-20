@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.techfood.R
 import com.example.techfood.databinding.FragmentSlideshowBinding
 
 class SlideshowFragment : Fragment() {
@@ -31,6 +33,10 @@ class SlideshowFragment : Fragment() {
         val textView: TextView = binding.textSlideshow
         slideshowViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
+        }
+        binding.btningresarproducto.setOnClickListener {
+            // Navegar al fragmento de agregar producto cuando se hace clic en el botón
+            findNavController().navigate(R.id.addProductoFragment)
         }
         return root
     }
