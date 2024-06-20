@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.techfood.Models.Producto
 import com.example.techfood.databinding.FragmentAgregarBinding
 import com.google.android.material.snackbar.Snackbar
@@ -43,7 +44,6 @@ class AgregarFragment : Fragment() {
                 binding.etPrecioProducto.error = "Ingrese un precio"
                 return@setOnClickListener
             }
-
             val producto = Producto(id, nombre, precio)
             if (id != null) {
                 databaseReference.child(id).setValue(producto)
@@ -54,6 +54,10 @@ class AgregarFragment : Fragment() {
                         Snackbar.make(binding.root, "Error al ingresar el producto", Snackbar.LENGTH_LONG).show()
                     }
             }
+        }
+        binding.btnVer.setOnClickListener {
+            // Navegar al fragmento de Productos cuando se hace clic en el botón
+            findNavController().navigate(R.id.nav_gallery)
         }
     }
 }
