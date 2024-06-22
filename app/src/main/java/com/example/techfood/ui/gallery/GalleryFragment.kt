@@ -1,6 +1,7 @@
 package com.example.techfood.ui.gallery
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import com.example.techfood.Adapter.AdapterProducto
 import com.example.techfood.Models.Producto
 import com.example.techfood.databinding.FragmentGalleryBinding
 import com.google.firebase.database.*
+
 
 class GalleryFragment : Fragment() {
 
@@ -48,13 +50,15 @@ class GalleryFragment : Fragment() {
         database.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    productosList.clear()
+                    val updatedList = ArrayList<Producto>()
                     for (productosSnapshot in snapshot.children) {
                         val producto = productosSnapshot.getValue(Producto::class.java)
-                        if (producto != null) {
-                            productosList.add(producto)
+                        producto?.let {
+                            updatedList.add(it)
                         }
                     }
+                    productosList.clear()
+                    productosList.addAll(updatedList)
                     adapterProducto.notifyDataSetChanged()
                 }
             }
@@ -70,3 +74,4 @@ class GalleryFragment : Fragment() {
         _binding = null
     }
 }
+

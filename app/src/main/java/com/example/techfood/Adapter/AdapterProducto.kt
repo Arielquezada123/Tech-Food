@@ -3,34 +3,44 @@ package com.example.techfood.Adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.techfood.Models.Producto
 import com.example.techfood.R
+import com.example.techfood.databinding.ItemProductosBinding
 
 class AdapterProducto(
     private val productosList: ArrayList<Producto>
 ) : RecyclerView.Adapter<AdapterProducto.ProductoViewHolder>() {
 
-    class ProductoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nombreProducto: TextView = itemView.findViewById(R.id.tvNombreProducto)
-        val precioProducto: TextView = itemView.findViewById(R.id.tvPrecioProducto)
+    // Clase ViewHolder usando ViewBinding
+    class ProductoViewHolder(private val binding: ItemProductosBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(producto: Producto) {
+            binding.tvNombreProducto.text = producto.nombre
+            binding.tvPrecioProducto.text = producto.precio
+            // Cargar imagen con Glide, usando binding.ivProductoImagen
+            Glide.with(binding.root.context)
+                .load(producto.imageUrl)
+                .placeholder(R.drawable.placeholder_image)
+                .error(R.drawable.error_image)
+                .into(binding.ivImagenProducto)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductoViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_productos, parent, false)
-        return ProductoViewHolder(view)
+        val binding = ItemProductosBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ProductoViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ProductoViewHolder, position: Int) {
         val producto = productosList[position]
-        holder.nombreProducto.text = producto.nombre
-        holder.precioProducto.text = producto.precio
+        holder.bind(producto)
     }
 
     override fun getItemCount(): Int {
         return productosList.size
     }
 }
-
 
