@@ -31,6 +31,11 @@ class AdapterProducto(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductoViewHolder {
         val binding = ItemProductosBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        // Agregar márgenes o paddings al contenedor raíz del elemento del producto
+        val layoutParams = binding.root.layoutParams as ViewGroup.MarginLayoutParams
+        val margin = parent.context.resources.getDimensionPixelSize(R.dimen.item_margin)
+        layoutParams.setMargins(margin, margin, margin, margin)
+        binding.root.layoutParams = layoutParams
         return ProductoViewHolder(binding)
     }
 
@@ -43,4 +48,5 @@ class AdapterProducto(
         return productosList.size
     }
 }
+
 
