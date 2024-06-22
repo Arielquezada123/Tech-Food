@@ -19,6 +19,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
 import com.google.firebase.storage.FirebaseStorage
+import androidx.navigation.fragment.findNavController
 
 
 class AgregarFragment : Fragment() {
@@ -66,6 +67,10 @@ class AgregarFragment : Fragment() {
 
         binding.btnSeleccionarImagen.setOnClickListener {
             selectImageFromGallery()
+        }
+        binding.btnVer.setOnClickListener {
+            // Navegar al fragmento de Productos cuando se hace clic en el botón
+            findNavController().navigate(R.id.nav_gallery)
         }
     }
 
@@ -141,6 +146,7 @@ class AgregarFragment : Fragment() {
         }.addOnFailureListener {
             Toast.makeText(requireContext(), "Error al subir la imagen", Toast.LENGTH_SHORT).show()
         }
+
     }
 }
 
