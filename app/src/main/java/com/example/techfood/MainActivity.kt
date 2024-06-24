@@ -2,6 +2,7 @@ package com.example.techfood
 
 import android.os.Bundle
 import android.view.Menu
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -45,4 +46,19 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+    override fun onBackPressed() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("¿Estás seguro de que quieres salir?")
+        builder.setPositiveButton("Sí") { dialog, which ->
+            super.onBackPressed()
+        }
+        builder.setNegativeButton("No") { dialog, which ->
+            // No hacer nada, simplemente cerrar el diálogo
+        }
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+
+
 }
